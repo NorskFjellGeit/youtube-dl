@@ -425,9 +425,7 @@ class NRKTVEpisodeIE(InfoExtractor):
 
         webpage = self._download_webpage(url, display_id)
 
-        nrk_id = self._parse_json(
-            self._search_regex(JSON_LD_RE, webpage, 'JSON-LD', group='json_ld'),
-            display_id)['@id']
+        nrk_id = self._html_search_meta("nrk:program-id", webpage)
 
         assert re.match(NRKTVIE._EPISODE_RE, nrk_id)
         return self.url_result(
